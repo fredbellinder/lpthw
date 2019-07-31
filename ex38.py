@@ -73,7 +73,6 @@ def getCards(card_count_input):
 
 def checkHand(player):
     global pairs_collected_total
-    print("Your cards: ", sorted(player['cards']))
     four_of_a_kind = player['four_of_a_kind']
     for card in set(player['cards']):
         if player['cards'].count(card) >= 4:
@@ -138,13 +137,14 @@ for idx, player in enumerate(players):
         "four_of_a_kind": set()
     }
     player_dict[player]['four_of_a_kind'] = checkHand(player_dict[player])
-    input("Remember your hand (you don't really have to though :)")
     unused = os.system('clear')
 
 while len(cards_deck) != 0 or pairs_collected_total != 13:
-
-    for player in player_dict.keys():
-        if len(player_dict[player]['cards']) or len(cards_deck) != 0:
+    players = player_dict.keys()
+    nonEmptyHands = list(filter(lambda x: len(
+        player_dict[x]['cards']) > 0, players))
+    for player in players:
+        if len(nonEmptyHands) or len(cards_deck) != 0:
             input(f"Next player: {player}, press enter to clear screen")
             unused = os.system('clear')
             input(f"{player}'s turn, press enter to go!")
@@ -152,13 +152,14 @@ while len(cards_deck) != 0 or pairs_collected_total != 13:
             break
         excluded = list(filter(lambda x: x != player,
                                list(player_dict.keys())))
-        while len(player_dict[player]['cards']) or len(cards_deck) != 0:
+        while len(player_dict[player]['cards']) != 0 or len(cards_deck) != 0:
             print(f"{player} choose who to ask: {excluded}") if len(
                 excluded) > 1 else None
             who = setWho(excluded) if len(excluded) > 1 else excluded[0]
 
             set_of_cards = set(player_dict[player]['cards']) if len(
                 set(player_dict[player]['cards'])) != 0 else getCards(1)
+            print("Your cards: ", sorted(player_dict[player]['cards']))
             print(
                 f"{player}, choose what to ask {who} for, one of these: {set_of_cards}")
             what = setWhat(set_of_cards)

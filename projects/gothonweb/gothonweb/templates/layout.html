@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Freds Flask App</title>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <ul>
+          <li>
+            <a href="/hello">
+              <p>Hello</p>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <p>About</p>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <p>Contact</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <section>
+        <p>
+          {% block content %} {% endblock %}
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
